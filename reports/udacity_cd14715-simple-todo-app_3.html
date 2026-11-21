@@ -47,7 +47,7 @@
   
   <div class="summary">
     <div class="metric">
-      <div class="metric-value">90</div>
+      <div class="metric-value">24</div>
       <div class="metric-label">Overall Score</div>
     </div>
     <div class="metric">
@@ -55,24 +55,54 @@
       <div class="metric-label">Files Reviewed</div>
     </div>
     <div class="metric">
-      <div class="metric-value">0</div>
+      <div class="metric-value">5</div>
       <div class="metric-label">Critical Issues</div>
     </div>
     <div class="metric">
-      <div class="metric-value">0</div>
+      <div class="metric-value">60</div>
       <div class="metric-label">Tests Needed</div>
     </div>
     <div class="metric">
-      <div class="metric-value">0</div>
+      <div class="metric-value">10</div>
       <div class="metric-label">Refactorings</div>
     </div>
   </div>
 
   <h2>🎯 Top Recommendations</h2>
-  <ul><li>No recommendations at this time.</li></ul>
+  <ul>
+      <li class="rec-critical">
+        <span class="priority">[CRITICAL]</span>
+        <strong>Security</strong>: Implement PCI-DSS compliant payment processing. Replace direct card handling with payment tokenization service (Stripe, Square, PayPal). Card data must never be transmitted or stored in plain text.
+        <br><small>Files: src/premium.ts</small>
+      </li>
+    
+      <li class="rec-critical">
+        <span class="priority">[CRITICAL]</span>
+        <strong>Security</strong>: Add authentication and authorization checks to processPremiumPayment() to prevent privilege escalation attacks. Verify authenticated user matches userId parameter or has admin privileges.
+        <br><small>Files: src/premium.ts</small>
+      </li>
+    
+      <li class="rec-critical">
+        <span class="priority">[CRITICAL]</span>
+        <strong>Security</strong>: Implement Luhn algorithm validation for credit card numbers. Current validation only checks length, allowing invalid card numbers to pass validation.
+        <br><small>Files: src/premium.ts</small>
+      </li>
+    
+      <li class="rec-critical">
+        <span class="priority">[CRITICAL]</span>
+        <strong>Testing</strong>: Create comprehensive test suite with minimum 150-200 test cases covering all 7 functions with 90%+ code coverage. Include unit tests for validation, pricing, database operations, and integration tests for payment flows.
+        <br><small>Files: src/premium.ts</small>
+      </li>
+    
+      <li class="rec-critical">
+        <span class="priority">[CRITICAL]</span>
+        <strong>Security</strong>: Fix Y2K bug in expiry date parsing. Current implementation uses hardcoded 2000 offset which will fail for dates after 2099. Implement proper century windowing logic.
+        <br><small>Files: src/premium.ts</small>
+      </li>
+    </ul>
 
   <footer>
-    Generated at 2026-11-21T10:44:49.433Z • Duration: 0ms
+    Generated at 2026-11-21T00:00:00Z • Duration: 180ms
   </footer>
 </body>
 </html>

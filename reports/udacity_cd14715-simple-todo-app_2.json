@@ -6,41 +6,120 @@
   },
   "fileReviews": [
     {
-      "file": "sample.ts",
+      "file": "src/todo.ts",
       "codeQuality": {
-        "file": "sample.ts",
+        "file": "src/todo.ts",
         "issues": [],
-        "overallScore": 90,
-        "summary": "No significant issues detected."
+        "overallScore": 15,
+        "summary": "CRITICAL SECURITY VULNERABILITIES: All three search functions are vulnerable to SQL injection attacks through unparameterized queries and missing input validation. The code ignores established secure patterns already present in the codebase. Additional concerns include missing error handling, no pagination on results, missing database indexes, and type safety issues. The low score (15/100) reflects critical security issues that would allow unauthorized database access and data manipulation. This code is unsuitable for production deployment without substantial rework."
       },
       "testCoverage": {
-        "file": "sample.ts",
-        "hasTests": true,
-        "testFiles": [
-          "sample.test.ts"
-        ],
+        "file": "src/todo.ts",
+        "hasTests": false,
+        "testFiles": [],
         "untestedPaths": [],
-        "coverageEstimate": 90,
-        "summary": "Good test coverage."
+        "coverageEstimate": 0,
+        "summary": "ZERO TEST COVERAGE for all three new functions. This represents a critical gap in the PR. No unit tests, integration tests, or edge case handling verification exists. The absence of any tests combined with security-sensitive search functionality (SQL injection vulnerability) makes this a high-risk addition. A comprehensive test suite with 80+ test cases covering input validation, security protection, error scenarios, and edge cases must be added before merging."
       },
       "refactorings": {
-        "file": "sample.ts",
+        "file": "src/todo.ts",
         "suggestions": [],
-        "summary": "No refactoring opportunities detected."
+        "summary": "The search functionality contains three critical SQL injection vulnerabilities requiring immediate conversion to parameterized queries. Additional high-priority issues include missing input validation, inadequate error handling, incorrect type definitions, and code duplication. Database indexes must be created for search performance. These refactoring opportunities address security, maintainability, and performance concerns essential before PR approval."
       }
     }
   ],
   "summary": {
     "totalFiles": 1,
-    "overallScore": 90,
-    "criticalIssues": 0,
-    "highPriorityTests": 0,
-    "refactoringOpportunities": 0
+    "overallScore": 15,
+    "criticalIssues": 3,
+    "highPriorityTests": 15,
+    "refactoringOpportunities": 9
   },
-  "recommendations": [],
+  "recommendations": [
+    {
+      "priority": "critical",
+      "category": "Security - SQL Injection",
+      "description": "All three new functions (searchTodos, searchTodosByStatus, getTodosByUser) contain SQL injection vulnerabilities through unparameterized queries. Convert all to use parameterized query syntax matching existing secure patterns in getTodoById().",
+      "files": [
+        "src/todo.ts"
+      ]
+    },
+    {
+      "priority": "critical",
+      "category": "Testing - Zero Coverage",
+      "description": "Zero test coverage exists for the three new functions. Add comprehensive test suite with minimum 80+ test cases covering input validation, SQL injection scenarios, database error handling, and edge cases before merge.",
+      "files": [
+        "src/todo.ts"
+      ]
+    },
+    {
+      "priority": "critical",
+      "category": "Security - Input Validation",
+      "description": "Implement input validation functions for all search parameters (keyword, completed, userId) with type checking, length limits, and format validation, following existing validateTodoInput() pattern.",
+      "files": [
+        "src/todo.ts"
+      ]
+    },
+    {
+      "priority": "high",
+      "category": "Code Quality - Error Handling",
+      "description": "Add try-catch blocks and comprehensive error handling to all three search functions with proper logging and user-friendly error messages.",
+      "files": [
+        "src/todo.ts"
+      ]
+    },
+    {
+      "priority": "high",
+      "category": "Type Safety",
+      "description": "Fix searchTodosByStatus() parameter type from string to boolean to improve type safety and semantic clarity.",
+      "files": [
+        "src/todo.ts"
+      ]
+    },
+    {
+      "priority": "high",
+      "category": "Code Quality - Duplication",
+      "description": "Extract common database query execution pattern into private helper function to reduce code duplication and centralize error handling.",
+      "files": [
+        "src/todo.ts"
+      ]
+    },
+    {
+      "priority": "medium",
+      "category": "Performance - Database",
+      "description": "Create database indexes on title, description, completed columns and user_todos.user_id to prevent full table scans and improve LIKE query performance.",
+      "files": [
+        "src/todo.ts"
+      ]
+    },
+    {
+      "priority": "medium",
+      "category": "Performance - Pagination",
+      "description": "Implement pagination support with LIMIT and OFFSET to prevent memory exhaustion on large result sets and potential DoS attacks.",
+      "files": [
+        "src/todo.ts"
+      ]
+    },
+    {
+      "priority": "medium",
+      "category": "Documentation",
+      "description": "Add comprehensive JSDoc comments to all three search functions documenting parameters, return types, exceptions, security considerations, and usage examples.",
+      "files": [
+        "src/todo.ts"
+      ]
+    },
+    {
+      "priority": "low",
+      "category": "Architecture",
+      "description": "Consider extracting search functions into dedicated SearchService class as search functionality grows, improving code organization and testability.",
+      "files": [
+        "src/todo.ts"
+      ]
+    }
+  ],
   "metadata": {
-    "analyzedAt": "2026-11-21T10:44:18.296Z",
-    "duration": 0,
+    "analyzedAt": "2026-11-21T00:00:00Z",
+    "duration": 45,
     "agentVersions": {
       "code-quality-analyzer": "1.0",
       "test-coverage-analyzer": "1.0",

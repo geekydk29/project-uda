@@ -47,7 +47,7 @@
   
   <div class="summary">
     <div class="metric">
-      <div class="metric-value">25</div>
+      <div class="metric-value">24</div>
       <div class="metric-label">Overall Score</div>
     </div>
     <div class="metric">
@@ -55,15 +55,15 @@
       <div class="metric-label">Files Reviewed</div>
     </div>
     <div class="metric">
-      <div class="metric-value">8</div>
+      <div class="metric-value">5</div>
       <div class="metric-label">Critical Issues</div>
     </div>
     <div class="metric">
-      <div class="metric-value">32</div>
+      <div class="metric-value">60</div>
       <div class="metric-label">Tests Needed</div>
     </div>
     <div class="metric">
-      <div class="metric-value">15</div>
+      <div class="metric-value">10</div>
       <div class="metric-label">Refactorings</div>
     </div>
   </div>
@@ -72,37 +72,37 @@
   <ul>
       <li class="rec-critical">
         <span class="priority">[CRITICAL]</span>
-        <strong>Security</strong>: DO NOT MERGE - This PR introduces critical security vulnerabilities. The code handles raw payment card data in violation of PCI-DSS compliance. This alone is a show-stopper that could result in massive fines and legal liability. Payment processing MUST be delegated to a PCI-compliant payment gateway (Stripe, PayPal, or Braintree) that handles card data tokenization.
+        <strong>Security</strong>: Implement PCI-DSS compliant payment processing. Replace direct card handling with payment tokenization service (Stripe, Square, PayPal). Card data must never be transmitted or stored in plain text.
         <br><small>Files: src/premium.ts</small>
       </li>
     
       <li class="rec-critical">
         <span class="priority">[CRITICAL]</span>
-        <strong>Security</strong>: Implement proper authentication and authorization checks before processing payments. Currently, the code accepts userId as a parameter without verifying that the caller is authorized to perform actions for that user, allowing privilege escalation attacks.
+        <strong>Security</strong>: Add authentication and authorization checks to processPremiumPayment() to prevent privilege escalation attacks. Verify authenticated user matches userId parameter or has admin privileges.
         <br><small>Files: src/premium.ts</small>
       </li>
     
       <li class="rec-critical">
         <span class="priority">[CRITICAL]</span>
-        <strong>Testing</strong>: Add comprehensive test suite covering all payment logic. Zero test coverage for financial transactions is unacceptable. Implement minimum 85% code coverage with 100% coverage on critical payment paths including success paths, error scenarios, edge cases, and concurrent request handling.
+        <strong>Security</strong>: Implement Luhn algorithm validation for credit card numbers. Current validation only checks length, allowing invalid card numbers to pass validation.
         <br><small>Files: src/premium.ts</small>
       </li>
     
       <li class="rec-critical">
         <span class="priority">[CRITICAL]</span>
-        <strong>Architecture</strong>: Implement database transaction support to ensure atomicity of payment processing and subscription updates. Without transactions, failed operations could result in charging users without granting access or granting access without payment.
+        <strong>Testing</strong>: Create comprehensive test suite with minimum 150-200 test cases covering all 7 functions with 90%+ code coverage. Include unit tests for validation, pricing, database operations, and integration tests for payment flows.
         <br><small>Files: src/premium.ts</small>
       </li>
     
       <li class="rec-critical">
         <span class="priority">[CRITICAL]</span>
-        <strong>Compliance</strong>: Add comprehensive audit logging for all payment operations including successful transactions, failed validations, and subscription changes. This is required for compliance requirements and fraud detection.
+        <strong>Security</strong>: Fix Y2K bug in expiry date parsing. Current implementation uses hardcoded 2000 offset which will fail for dates after 2099. Implement proper century windowing logic.
         <br><small>Files: src/premium.ts</small>
       </li>
     </ul>
 
   <footer>
-    Generated at 2026-11-21T00:00:00Z • Duration: 45ms
+    Generated at 2026-11-21T00:00:00Z • Duration: 180ms
   </footer>
 </body>
 </html>

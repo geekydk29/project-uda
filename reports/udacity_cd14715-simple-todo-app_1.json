@@ -6,41 +6,160 @@
   },
   "fileReviews": [
     {
-      "file": "sample.ts",
+      "file": "fixtures/clean-code.ts",
       "codeQuality": {
-        "file": "sample.ts",
+        "file": "fixtures/clean-code.ts",
         "issues": [],
-        "overallScore": 90,
-        "summary": "No significant issues detected."
+        "overallScore": 32,
+        "summary": "CRITICAL security vulnerabilities requiring immediate remediation. Email validation using regex is unreliable and can be bypassed. XSS prevention through basic string replacement is inadequate. ID generation using non-cryptographic methods is predictable. Missing runtime type validation, inadequate error handling, and lack of input length constraints compound these issues. Performance concerns include unoptimized regex handling. Code structure shows separation of concerns but lacks production-grade security rigor."
       },
       "testCoverage": {
-        "file": "sample.ts",
-        "hasTests": true,
-        "testFiles": [
-          "sample.test.ts"
-        ],
+        "file": "fixtures/clean-code.ts",
+        "hasTests": false,
+        "testFiles": [],
         "untestedPaths": [],
-        "coverageEstimate": 90,
-        "summary": "Good test coverage."
+        "coverageEstimate": 0,
+        "summary": "No test files found. Zero test coverage for all functions. Critical functions (isValidEmail, sanitizeInput, createUser) handling user data and security operations require comprehensive test suites. Required coverage: 90%+ minimum for security-critical functions. Missing unit tests covering validation, error scenarios, edge cases, and integration workflows."
       },
       "refactorings": {
-        "file": "sample.ts",
+        "file": "fixtures/clean-code.ts",
         "suggestions": [],
-        "summary": "No refactoring opportunities detected."
+        "summary": "15 refactoring opportunities identified, primarily focused on security hardening and modernization. Key priorities: replace regex email validation with library, implement cryptographic ID generation, add runtime schema validation (Zod/Yup), extract database operations to repository layer, implement comprehensive error handling with custom error classes, add structured logging, and document security properties of critical functions. Many improvements are low-complexity but high-impact for production readiness."
       }
     }
   ],
   "summary": {
     "totalFiles": 1,
-    "overallScore": 90,
-    "criticalIssues": 0,
-    "highPriorityTests": 0,
-    "refactoringOpportunities": 0
+    "overallScore": 32,
+    "criticalIssues": 1,
+    "highPriorityTests": 18,
+    "refactoringOpportunities": 15
   },
-  "recommendations": [],
+  "recommendations": [
+    {
+      "priority": "critical",
+      "category": "Security",
+      "description": "Replace regex-based email validation with industry-standard library or email verification flow. Current implementation violates RFC 5322 and can be bypassed.",
+      "files": [
+        "fixtures/clean-code.ts"
+      ]
+    },
+    {
+      "priority": "critical",
+      "category": "Security",
+      "description": "Implement runtime schema validation using Zod, Yup, or similar library. TypeScript compile-time checking is insufficient for production security.",
+      "files": [
+        "fixtures/clean-code.ts"
+      ]
+    },
+    {
+      "priority": "high",
+      "category": "Security",
+      "description": "Replace ID generation using Math.random() with cryptographically secure method (crypto.randomUUID() or nanoid). Current approach is predictable and vulnerable to enumeration.",
+      "files": [
+        "fixtures/clean-code.ts"
+      ]
+    },
+    {
+      "priority": "high",
+      "category": "Security",
+      "description": "Add input length validation and bounds checking for all user inputs. Missing limits enable DoS attacks.",
+      "files": [
+        "fixtures/clean-code.ts"
+      ]
+    },
+    {
+      "priority": "high",
+      "category": "Security",
+      "description": "Implement context-aware XSS prevention. Replace simple string replacement with library (DOMPurify) or parameterized database queries.",
+      "files": [
+        "fixtures/clean-code.ts"
+      ]
+    },
+    {
+      "priority": "high",
+      "category": "Security",
+      "description": "Add error information leakage controls. Use generic error messages to users while logging detailed errors server-side.",
+      "files": [
+        "fixtures/clean-code.ts"
+      ]
+    },
+    {
+      "priority": "high",
+      "category": "Testing",
+      "description": "Create comprehensive test suite with 90%+ coverage for all functions. Focus on validation, error scenarios, edge cases, and integration workflows.",
+      "files": [
+        "fixtures/clean-code.ts"
+      ]
+    },
+    {
+      "priority": "high",
+      "category": "Code Quality",
+      "description": "Implement proper error handling with custom error classes (ValidationError, DatabaseError). Replace generic throw statements.",
+      "files": [
+        "fixtures/clean-code.ts"
+      ]
+    },
+    {
+      "priority": "medium",
+      "category": "Performance",
+      "description": "Move regex patterns to module-level constants to avoid recompilation on each function call.",
+      "files": [
+        "fixtures/clean-code.ts"
+      ]
+    },
+    {
+      "priority": "medium",
+      "category": "Maintainability",
+      "description": "Extract database operations to separate repository/data access layer for better separation of concerns and testability.",
+      "files": [
+        "fixtures/clean-code.ts"
+      ]
+    },
+    {
+      "priority": "medium",
+      "category": "Maintainability",
+      "description": "Add structured logging for security-sensitive operations (user creation, validation failures). Implement without exposing sensitive data.",
+      "files": [
+        "fixtures/clean-code.ts"
+      ]
+    },
+    {
+      "priority": "medium",
+      "category": "Documentation",
+      "description": "Add comprehensive JSDoc/TSDoc comments for security-critical functions explaining scope, limitations, and correct usage.",
+      "files": [
+        "fixtures/clean-code.ts"
+      ]
+    },
+    {
+      "priority": "medium",
+      "category": "Best Practices",
+      "description": "Separate database models from API response types. Prevents internal implementation details leakage.",
+      "files": [
+        "fixtures/clean-code.ts"
+      ]
+    },
+    {
+      "priority": "low",
+      "category": "Best Practices",
+      "description": "Enable TypeScript strict mode and stricter compiler options (noImplicitAny, strictNullChecks, strictFunctionTypes).",
+      "files": [
+        "fixtures/clean-code.ts"
+      ]
+    },
+    {
+      "priority": "low",
+      "category": "Code Quality",
+      "description": "Replace any hardcoded values and 'any' types with named constants and specific types.",
+      "files": [
+        "fixtures/clean-code.ts"
+      ]
+    }
+  ],
   "metadata": {
-    "analyzedAt": "2026-11-21T10:43:34.189Z",
-    "duration": 1,
+    "analyzedAt": "2026-11-21T00:00:00Z",
+    "duration": 45000,
     "agentVersions": {
       "code-quality-analyzer": "1.0",
       "test-coverage-analyzer": "1.0",

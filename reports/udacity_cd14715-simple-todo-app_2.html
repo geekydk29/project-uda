@@ -47,7 +47,7 @@
   
   <div class="summary">
     <div class="metric">
-      <div class="metric-value">90</div>
+      <div class="metric-value">15</div>
       <div class="metric-label">Overall Score</div>
     </div>
     <div class="metric">
@@ -55,24 +55,54 @@
       <div class="metric-label">Files Reviewed</div>
     </div>
     <div class="metric">
-      <div class="metric-value">0</div>
+      <div class="metric-value">3</div>
       <div class="metric-label">Critical Issues</div>
     </div>
     <div class="metric">
-      <div class="metric-value">0</div>
+      <div class="metric-value">15</div>
       <div class="metric-label">Tests Needed</div>
     </div>
     <div class="metric">
-      <div class="metric-value">0</div>
+      <div class="metric-value">9</div>
       <div class="metric-label">Refactorings</div>
     </div>
   </div>
 
   <h2>🎯 Top Recommendations</h2>
-  <ul><li>No recommendations at this time.</li></ul>
+  <ul>
+      <li class="rec-critical">
+        <span class="priority">[CRITICAL]</span>
+        <strong>Security - SQL Injection</strong>: All three new functions (searchTodos, searchTodosByStatus, getTodosByUser) contain SQL injection vulnerabilities through unparameterized queries. Convert all to use parameterized query syntax matching existing secure patterns in getTodoById().
+        <br><small>Files: src/todo.ts</small>
+      </li>
+    
+      <li class="rec-critical">
+        <span class="priority">[CRITICAL]</span>
+        <strong>Testing - Zero Coverage</strong>: Zero test coverage exists for the three new functions. Add comprehensive test suite with minimum 80+ test cases covering input validation, SQL injection scenarios, database error handling, and edge cases before merge.
+        <br><small>Files: src/todo.ts</small>
+      </li>
+    
+      <li class="rec-critical">
+        <span class="priority">[CRITICAL]</span>
+        <strong>Security - Input Validation</strong>: Implement input validation functions for all search parameters (keyword, completed, userId) with type checking, length limits, and format validation, following existing validateTodoInput() pattern.
+        <br><small>Files: src/todo.ts</small>
+      </li>
+    
+      <li class="rec-high">
+        <span class="priority">[HIGH]</span>
+        <strong>Code Quality - Error Handling</strong>: Add try-catch blocks and comprehensive error handling to all three search functions with proper logging and user-friendly error messages.
+        <br><small>Files: src/todo.ts</small>
+      </li>
+    
+      <li class="rec-high">
+        <span class="priority">[HIGH]</span>
+        <strong>Type Safety</strong>: Fix searchTodosByStatus() parameter type from string to boolean to improve type safety and semantic clarity.
+        <br><small>Files: src/todo.ts</small>
+      </li>
+    </ul>
 
   <footer>
-    Generated at 2026-11-21T10:44:18.296Z • Duration: 0ms
+    Generated at 2026-11-21T00:00:00Z • Duration: 45ms
   </footer>
 </body>
 </html>

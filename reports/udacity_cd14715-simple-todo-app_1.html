@@ -47,7 +47,7 @@
   
   <div class="summary">
     <div class="metric">
-      <div class="metric-value">90</div>
+      <div class="metric-value">32</div>
       <div class="metric-label">Overall Score</div>
     </div>
     <div class="metric">
@@ -55,24 +55,54 @@
       <div class="metric-label">Files Reviewed</div>
     </div>
     <div class="metric">
-      <div class="metric-value">0</div>
+      <div class="metric-value">1</div>
       <div class="metric-label">Critical Issues</div>
     </div>
     <div class="metric">
-      <div class="metric-value">0</div>
+      <div class="metric-value">18</div>
       <div class="metric-label">Tests Needed</div>
     </div>
     <div class="metric">
-      <div class="metric-value">0</div>
+      <div class="metric-value">15</div>
       <div class="metric-label">Refactorings</div>
     </div>
   </div>
 
   <h2>🎯 Top Recommendations</h2>
-  <ul><li>No recommendations at this time.</li></ul>
+  <ul>
+      <li class="rec-critical">
+        <span class="priority">[CRITICAL]</span>
+        <strong>Security</strong>: Replace regex-based email validation with industry-standard library or email verification flow. Current implementation violates RFC 5322 and can be bypassed.
+        <br><small>Files: fixtures/clean-code.ts</small>
+      </li>
+    
+      <li class="rec-critical">
+        <span class="priority">[CRITICAL]</span>
+        <strong>Security</strong>: Implement runtime schema validation using Zod, Yup, or similar library. TypeScript compile-time checking is insufficient for production security.
+        <br><small>Files: fixtures/clean-code.ts</small>
+      </li>
+    
+      <li class="rec-high">
+        <span class="priority">[HIGH]</span>
+        <strong>Security</strong>: Replace ID generation using Math.random() with cryptographically secure method (crypto.randomUUID() or nanoid). Current approach is predictable and vulnerable to enumeration.
+        <br><small>Files: fixtures/clean-code.ts</small>
+      </li>
+    
+      <li class="rec-high">
+        <span class="priority">[HIGH]</span>
+        <strong>Security</strong>: Add input length validation and bounds checking for all user inputs. Missing limits enable DoS attacks.
+        <br><small>Files: fixtures/clean-code.ts</small>
+      </li>
+    
+      <li class="rec-high">
+        <span class="priority">[HIGH]</span>
+        <strong>Security</strong>: Implement context-aware XSS prevention. Replace simple string replacement with library (DOMPurify) or parameterized database queries.
+        <br><small>Files: fixtures/clean-code.ts</small>
+      </li>
+    </ul>
 
   <footer>
-    Generated at 2026-11-21T10:43:34.189Z • Duration: 1ms
+    Generated at 2026-11-21T00:00:00Z • Duration: 45000ms
   </footer>
 </body>
 </html>
