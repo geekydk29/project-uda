@@ -1,0 +1,50 @@
+{
+  "pullRequest": {
+    "owner": "udacity",
+    "repo": "cd14715-simple-todo-app",
+    "number": 3
+  },
+  "fileReviews": [
+    {
+      "file": "sample.ts",
+      "codeQuality": {
+        "file": "sample.ts",
+        "issues": [],
+        "overallScore": 90,
+        "summary": "No significant issues detected."
+      },
+      "testCoverage": {
+        "file": "sample.ts",
+        "hasTests": true,
+        "testFiles": [
+          "sample.test.ts"
+        ],
+        "untestedPaths": [],
+        "coverageEstimate": 90,
+        "summary": "Good test coverage."
+      },
+      "refactorings": {
+        "file": "sample.ts",
+        "suggestions": [],
+        "summary": "No refactoring opportunities detected."
+      }
+    }
+  ],
+  "summary": {
+    "totalFiles": 1,
+    "overallScore": 90,
+    "criticalIssues": 0,
+    "highPriorityTests": 0,
+    "refactoringOpportunities": 0
+  },
+  "recommendations": [],
+  "metadata": {
+    "analyzedAt": "2026-11-21T10:44:49.433Z",
+    "duration": 0,
+    "agentVersions": {
+      "code-quality-analyzer": "1.0",
+      "test-coverage-analyzer": "1.0",
+      "refactoring-suggester": "1.0"
+    }
+  }
+}
