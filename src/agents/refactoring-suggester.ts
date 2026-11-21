@@ -8,11 +8,14 @@ export const refactoringSuggester: AgentDefinition = {
 
   tools: [
     'Read',
-    'Grep'
+    'Grep',
+    'Skill'
   ],
 
   prompt: `
 Review the code for refactoring opportunities.
+
+Use the Skill tool when language-specific or domain-specific refactoring skills are relevant.
 
 Focus on:
 - Complexity reduction

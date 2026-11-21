@@ -6,41 +6,136 @@
   },
   "fileReviews": [
     {
-      "file": "sample.ts",
+      "file": "src/premium.ts",
       "codeQuality": {
-        "file": "sample.ts",
+        "file": "src/premium.ts",
         "issues": [],
-        "overallScore": 90,
-        "summary": "No significant issues detected."
+        "overallScore": 25,
+        "summary": "CRITICAL SECURITY RISK - This code has severe security vulnerabilities that make it unsuitable for production use. Key issues: (1) Handles raw payment card data violating PCI-DSS compliance - this alone is a show-stopper, (2) No authentication/authorization checks allowing privilege escalation, (3) Zero test coverage for critical financial logic, (4) Missing transaction management risking payment/subscription inconsistencies, (5) No audit logging for compliance requirements, (6) Vulnerable to race conditions and potential double-charging. RECOMMENDATION: DO NOT MERGE this PR. This requires complete rewrite using a PCI-compliant payment gateway (Stripe/PayPal), comprehensive test suite, proper security controls, transaction management, and audit logging."
       },
       "testCoverage": {
-        "file": "sample.ts",
-        "hasTests": true,
-        "testFiles": [
-          "sample.test.ts"
-        ],
+        "file": "src/premium.ts",
+        "hasTests": false,
+        "testFiles": [],
         "untestedPaths": [],
-        "coverageEstimate": 90,
-        "summary": "Good test coverage."
+        "coverageEstimate": 0,
+        "summary": "CRITICAL: This premium subscription module has ZERO test coverage despite handling sensitive payment processing and business-critical logic. All 8 functions (4 exported, 4 internal) are completely untested. This poses severe risks: (1) Payment validation logic is unverified, (2) Price calculation has no test coverage, (3) Card charging logic lacks error handling verification, (4) Database transaction failures during subscription upgrades are untested, (5) Feature access control is unverified, (6) No integration tests exist for the complete payment flow, (7) Edge cases like expired subscriptions and concurrent requests are untested, (8) Security concerns have no test validation. RECOMMENDATION: Block this PR until comprehensive test coverage is added. Minimum requirements: Unit tests for all 8 functions covering success and failure paths, Payment validation tests, Price calculation tests, Database transaction tests, Integration tests for complete payment-to-upgrade flow, Security tests, Concurrent request handling tests. Target minimum 85% code coverage with 100% coverage on critical payment paths."
       },
       "refactorings": {
-        "file": "sample.ts",
+        "file": "src/premium.ts",
         "suggestions": [],
-        "summary": "No refactoring opportunities detected."
+        "summary": "The premium.ts file requires significant refactoring across multiple dimensions. High-priority improvements include: (1) Separating payment processing into a dedicated service, (2) Implementing database transaction support, (3) Replacing magic strings with type-safe enums, (4) Externalizing hardcoded configuration, (5) Standardizing error handling, (6) Adding runtime validation for JSON parsing, and (7) Using ORM or parameterized queries. Medium-priority improvements include dependency injection, card validation extraction, Money value objects, Strategy pattern for pricing, audit logging, and Repository pattern. Low-priority improvements include named constants, Builder pattern, and branded types. The overall architecture should move toward a layered design with clear separation between domain logic, data access, external service integration, and configuration management."
       }
     }
   ],
   "summary": {
     "totalFiles": 1,
-    "overallScore": 90,
-    "criticalIssues": 0,
-    "highPriorityTests": 0,
-    "refactoringOpportunities": 0
+    "overallScore": 25,
+    "criticalIssues": 8,
+    "highPriorityTests": 32,
+    "refactoringOpportunities": 15
   },
-  "recommendations": [],
+  "recommendations": [
+    {
+      "priority": "critical",
+      "category": "Security",
+      "description": "DO NOT MERGE - This PR introduces critical security vulnerabilities. The code handles raw payment card data in violation of PCI-DSS compliance. This alone is a show-stopper that could result in massive fines and legal liability. Payment processing MUST be delegated to a PCI-compliant payment gateway (Stripe, PayPal, or Braintree) that handles card data tokenization.",
+      "files": [
+        "src/premium.ts"
+      ]
+    },
+    {
+      "priority": "critical",
+      "category": "Security",
+      "description": "Implement proper authentication and authorization checks before processing payments. Currently, the code accepts userId as a parameter without verifying that the caller is authorized to perform actions for that user, allowing privilege escalation attacks.",
+      "files": [
+        "src/premium.ts"
+      ]
+    },
+    {
+      "priority": "critical",
+      "category": "Testing",
+      "description": "Add comprehensive test suite covering all payment logic. Zero test coverage for financial transactions is unacceptable. Implement minimum 85% code coverage with 100% coverage on critical payment paths including success paths, error scenarios, edge cases, and concurrent request handling.",
+      "files": [
+        "src/premium.ts"
+      ]
+    },
+    {
+      "priority": "critical",
+      "category": "Architecture",
+      "description": "Implement database transaction support to ensure atomicity of payment processing and subscription updates. Without transactions, failed operations could result in charging users without granting access or granting access without payment.",
+      "files": [
+        "src/premium.ts"
+      ]
+    },
+    {
+      "priority": "critical",
+      "category": "Compliance",
+      "description": "Add comprehensive audit logging for all payment operations including successful transactions, failed validations, and subscription changes. This is required for compliance requirements and fraud detection.",
+      "files": [
+        "src/premium.ts"
+      ]
+    },
+    {
+      "priority": "high",
+      "category": "Security",
+      "description": "Implement rate limiting and fraud detection for payment processing endpoints. Without rate limiting, the system is vulnerable to brute force attacks on card validation and denial-of-service attacks through repeated payment attempts.",
+      "files": [
+        "src/premium.ts"
+      ]
+    },
+    {
+      "priority": "high",
+      "category": "Architecture",
+      "description": "Separate payment processing into a dedicated PaymentService with abstraction over payment providers. This improves testability, allows for easier payment provider swapping, and follows Single Responsibility Principle.",
+      "files": [
+        "src/premium.ts"
+      ]
+    },
+    {
+      "priority": "high",
+      "category": "Maintainability",
+      "description": "Externalize hardcoded configuration values (TAX_RATE, PROCESSING_FEE, pricing) to environment variables with schema validation. This enables runtime changes without code deployment and supports regional variations.",
+      "files": [
+        "src/premium.ts"
+      ]
+    },
+    {
+      "priority": "high",
+      "category": "Code Quality",
+      "description": "Standardize error handling using custom error hierarchy instead of mixed throw/return patterns. This makes the API predictable and allows callers to handle specific error types appropriately.",
+      "files": [
+        "src/premium.ts"
+      ]
+    },
+    {
+      "priority": "high",
+      "category": "Type Safety",
+      "description": "Replace magic strings with type-safe enums and implement runtime validation for JSON parsing using Zod. This prevents runtime errors and provides compile-time safety for tier selections and feature flags.",
+      "files": [
+        "src/premium.ts"
+      ]
+    },
+    {
+      "priority": "medium",
+      "category": "Architecture",
+      "description": "Implement Repository pattern to encapsulate database access logic. This improves testability, provides clean abstraction over database implementation, and makes migration easier.",
+      "files": [
+        "src/premium.ts"
+      ]
+    },
+    {
+      "priority": "medium",
+      "category": "Dependency Management",
+      "description": "Use dependency injection to inject database, payment service, and configuration dependencies. This decouples components and enables easy mocking in unit tests.",
+      "files": [
+        "src/premium.ts"
+      ]
+    }
+  ],
   "metadata": {
-    "analyzedAt": "2026-11-21T10:44:49.433Z",
-    "duration": 0,
+    "analyzedAt": "2026-11-21T00:00:00Z",
+    "duration": 45,
     "agentVersions": {
       "code-quality-analyzer": "1.0",
       "test-coverage-analyzer": "1.0",

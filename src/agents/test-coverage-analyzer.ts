@@ -8,11 +8,14 @@ export const testCoverageAnalyzer: AgentDefinition = {
 
   tools: [
     'Read',
-    'Grep'
+    'Grep',
+    'Skill'
   ],
 
   prompt: `
 Analyze test coverage for the supplied code.
+
+Use the Skill tool when an available testing or language-specific skill is relevant.
 
 Focus on:
 - Missing unit tests
